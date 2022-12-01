@@ -1,2 +1,1 @@
-heroku ps:scale web=1
-web streamlit run app.py
+web: streamlit run --server.port $PORT app.py
