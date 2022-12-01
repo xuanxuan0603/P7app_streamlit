@@ -1,6 +1,6 @@
 import streamlit as st
 import joblib
-from prediction import get_proba_for_client, force_plot
+from prediction import get_proba_for_client, get_plot
 from PIL import Image
 import numpy as np
 import pandas as pd
@@ -20,6 +20,7 @@ classifier = joblib.load('data/classifier.joblib')
 data = joblib.load('data/data.joblib')
 threshold = joblib.load('data/threshold.joblib')
 orignal_data = joblib.load('data/app_train_api.joblib')
+
 
 select_box_options = ['Home page', 'Customer Information', 'Customer Credit Risk', 'Customer analysis']
 
@@ -148,9 +149,10 @@ elif selectbox == select_box_options[2]:
     
     with tab3:
         if client_id != "":
+            client_id
             st.text("This interpretability plot is about understanding a single customer of a model")
-            plot_html = force_plot(client_id=str(client_id))
-            components.html(html=plot_html)
+            plot_html = get_plot(client_id)
+            components.html(html=plot_html['force_plot_html'])
             st.info('The explain ability for any individual customer is the most critical step to convince you to adopt your model. Note that red means this feature push the prediction higher (to the right) and those pushing the prediction lower are in blue.', icon="ℹ️")
 
 
